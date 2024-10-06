@@ -1,0 +1,9 @@
+# Node.js Express
+PORT=5001
+
+# Node.js pg (postgres)
+PGUSER=
+PGPASSWORD=
+PGHOST=localhost
+PGPORT=5432
+PGDATABASE=

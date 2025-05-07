@@ -1,32 +1,33 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-
+import globals from 'globals'
+import pluginJs from '@eslint/js'
+import tseslint from 'typescript-eslint'
+import stylistic from '@stylistic/eslint-plugin'
 
 export default [
-  { files: ["**/*.{js,mjs,cjs,ts}"] },
+  { files: ['src/**/*.{ts}'] },
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ["*.config.js", "dist/**/*js", "loader_CJS_to_ESM.cjs"],
+    plugins: {
+      '@stylistic': stylistic
+    },
     rules: {
-      'indent': [
+      '@stylistic/indent': ['error', 2],
+      '@stylistic/quotes': ['error', 'single'],
+      '@stylistic/semi': ['error', 'never'],
+      '@typescript-eslint/no-unused-vars': [
         'error',
-        2
-      ],
-      'linebreak-style': [
-        'error',
-        'unix'
-      ],
-      'quotes': [
-        'error',
-        'single'
-      ],
-      'semi': [
-        'error',
-        'never'
+        {
+          'args': 'all',
+          'argsIgnorePattern': '^_',
+          'caughtErrors': 'all',
+          'caughtErrorsIgnorePattern': '^_',
+          'destructuredArrayIgnorePattern': '^_',
+          'varsIgnorePattern': '^_',
+          'ignoreRestSiblings': true
+        }
       ]
     }
   }
-];
+]

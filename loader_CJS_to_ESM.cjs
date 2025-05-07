@@ -1,1 +1,1 @@
-(async () => await import('www.js'))();
+(async () => await import('./www.js'))();

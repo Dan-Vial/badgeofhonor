@@ -1,28 +1,12 @@
 // CRUD?
 
-import express, { Request, Response } from 'express'
-import { pgClient } from '../postgres'
-import { getContributeurs } from '../controllers/contributeurs'
-import { getContributions } from '../controllers/contributions'
+import express from 'express'
+import { getSvg } from '../controllers/svg'
+import { SearchParams } from '../middlewares/SearchParams'
+import { getData } from '../middlewares/GetData'
 
 const router = express.Router()
 
-/**
- * Route test API and connexion db
- */
-router.get('/', async function (_req: Request, res: Response) {
-  const pgRes = await pgClient.query('SELECT NOW()')
-  res.send({ api: 'API backend OK!!!', time: pgRes.rows[0].now })
-})
-
-/**
- * GET /contributeurs/{OWNER}_{REPO}
- */
-router.get('/contributeurs', getContributeurs)
-
-/**
- * GET /contributions/{OWNER}_{REPO}
- */
-router.get('/contributions/:id', getContributions)
+router.get('/tag', SearchParams, getData, getSvg)
 
 export default router
